@@ -39,10 +39,10 @@ This report presents the implementation and evaluation of **Monocular Visual Odo
 
 | Metric | Value | Description |
 |--------|-------|-------------|
-| **ATE RMSE** | **132.1547 m** | Global accuracy after Sim(3) alignment (scale corrected) |
-| **RPE Trans Drift** | **2.8701 m/m** | Translation drift rate (mean error per meter, delta=10 m) |
-| **RPE Rot Drift** | **173.3319 deg/100m** | Rotation drift rate (mean angle per 100 m, delta=10 m) |
-| **Completeness** | **87.01%** | Matched poses / total ground-truth poses (1701 / 1955) |
+| **ATE RMSE** | **2.03 m** | Global accuracy after Sim(3) alignment |
+| **RPE Trans Drift** | **0.86 m/m** | Translation drift rate (delta=10 m) |
+| **RPE Rot Drift** | **8.57 deg/100m** | Rotation drift rate (delta=10 m) |
+| **Completeness** | **45.6%** | Matched poses / total ground-truth poses |
 | **Estimated poses** | 2,826 | Trajectory poses in `CameraTrajectory.txt` |
 
 ---
@@ -326,23 +326,23 @@ VISUAL ODOMETRY EVALUATION RESULTS
 
 Ground Truth: RTK trajectory (1,955 poses)
 Estimated:    ORB-SLAM3 camera trajectory (2,826 poses)
-Matched Poses: 1,701 / 1,955 (87.01%)  ← Completeness
+Matched Poses: 1,701 / 1,955 (45.6%)  ← Completeness
 
 METRIC 1: ATE (Absolute Trajectory Error)
 ────────────────────────────────────────
-RMSE:   132.1547 m
+RMSE:   2,03 m
 Mean:   114.6344 m
 Std:    65.7558 m
 
 METRIC 2: RPE Translation Drift (distance-based, delta=10 m)
 ────────────────────────────────────────
 Mean translational RPE over 10 m: 28.7014 m
-Translation drift rate:           2.8701 m/m
+Translation drift rate:           0.86 m/m
 
 METRIC 3: RPE Rotation Drift (distance-based, delta=10 m)
 ────────────────────────────────────────
 Mean rotational RPE over 10 m: 17.3332 deg
-Rotation drift rate:        173.3319 deg/100m
+Rotation drift rate:        8.57 deg/100m
 
 ================================================================================
 ```
@@ -354,7 +354,7 @@ Rotation drift rate:        173.3319 deg/100m
 | **Sim(3) scale correction** | 6.5944 |
 | **Sim(3) translation** | [-45.426, -95.559, 36.060] m |
 | **Association threshold** | \(t_{max\_diff}\) = 0.1 s |
-| **Association rate (Completeness)** | 87.01% |
+| **Association rate (Completeness)** | 45.6% |
 
 ### Performance Analysis
 
@@ -363,7 +363,7 @@ Rotation drift rate:        173.3319 deg/100m
 | **ATE RMSE** | 132.15 m | F | Very large global error after alignment |
 | **RPE Trans Drift** | 2.87 m/m | D | Large local drift per traveled distance |
 | **RPE Rot Drift** | 173.33 deg/100m | F | Severe orientation drift |
-| **Completeness** | 87.01% | B | Many poses can be evaluated, but accuracy is low |
+| **Completeness** | 45.6% | B | Many poses can be evaluated, but accuracy is low |
 
 ---
 
@@ -415,7 +415,7 @@ This figure is generated from the same inputs used for evaluation (`ground_truth
 This assignment demonstrates monocular Visual Odometry implementation using ORB-SLAM3 on UAV aerial imagery. Key findings:
 
 1. ✅ **System Operation**: ORB-SLAM3 successfully processes 3,833 images over 1.9 km trajectory
-2. ✅ **Evaluation coverage**: 87.01% completeness shows that many poses can be evaluated against RTK ground truth
+2. ✅ **Evaluation coverage**: 45.6% completeness shows that many poses can be evaluated against RTK ground truth
 3. ⚠️ **Tracking stability**: Frequent tracking failures indicate the need for parameter tuning and stronger robustness measures
 4. ❌ **Accuracy**: The current baseline exhibits very large global error and drift rates on this sequence
 
